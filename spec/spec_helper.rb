@@ -52,6 +52,11 @@ end
 # running a PR on TravisCI
 def testing_env
   {
+    "HAS_JOSH_K_SEAL_OF_APPROVAL" => "true",
+    "TRAVIS" => "true",
+    "TRAVIS_PULL_REQUEST" => "42",
+    "TRAVIS_REPO_SLUG" => "danger/test",
+    "TRAVIS_COMMIT_RANGE" => "abc...def",
     "CI_MERGE_REQUEST_IID" => "42",
     "CI_PROJECT_ID" => "123456",
     "CI_PIPELINE_ID" => "7890",
