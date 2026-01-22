@@ -11,6 +11,10 @@ module Danger
   # - CI_PROJECT_ID
   # - OPENAI_API_KEY
   #
+  # Optional environment variables:
+  # - OPENAI_BASE_URL (defaults to "https://api.openai.com/v1")
+  # - OPENAI_MODEL (defaults to "gpt-4o-mini")
+  #
   # @example Run analysis on the current pipeline
   #          ai_feedback.analyze_pipeline
   #
@@ -32,6 +36,8 @@ module Danger
       ci_api_v4_url = ENV['CI_API_V4_URL']
       ci_project_id = ENV['CI_PROJECT_ID']
       openai_api_key = ENV['OPENAI_API_KEY']
+      openai_base_url = ENV['OPENAI_BASE_URL'] || "https://api.openai.com/v1"
+      openai_model = ENV['OPENAI_MODEL'] || "gpt-4o-mini"
 
       disclaimer_text = "_Automatically generated with OpenAI. This is only a suggestion and can be wrong._"
 
@@ -81,7 +87,7 @@ module Danger
 
         # Build the OpenAI payload
         openai_payload = {
-          model: "gpt-4o-mini",
+          model: openai_model,
           messages: [
             {
               role: "system",
@@ -101,7 +107,7 @@ module Danger
         }
 
         payload_json = JSON.generate(openai_payload)
-        openai_url = "https://api.openai.com/v1/chat/completions"
+        openai_url = "#{openai_base_url}/chat/completions"
         openai_response = post_request(openai_url, payload_json, openai_api_key)
         openai_response = openai_response.force_encoding("UTF-8").encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
 
@@ -141,4 +147,5 @@ module Danger
     def log(msg)
       UI.message(msg)
     end
+  end
 end

@@ -26,6 +26,11 @@ To use this plugin, you need to set the following environment variables:
 - `CI_PROJECT_ID` – The project ID in GitLab.
 - `OPENAI_API_KEY` – Your OpenAI API key.
 
+Optional environment variables:
+
+- `OPENAI_BASE_URL` – The OpenAI API base URL. Defaults to `https://api.openai.com/v1`. Use this if you want to use a custom OpenAI-compatible API endpoint.
+- `OPENAI_MODEL` – The OpenAI model to use for analysis. Defaults to `gpt-4o-mini`. You can specify any compatible model like `gpt-4`, `gpt-3.5-turbo`, etc.
+
 ### How It Works
 1. The plugin retrieves the latest GitLab pipeline.
 2. It checks for failed jobs and extracts the last 100 lines of each job’s log.
