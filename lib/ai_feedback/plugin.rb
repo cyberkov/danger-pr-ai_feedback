@@ -141,4 +141,5 @@ module Danger
     def log(msg)
       UI.message(msg)
     end
+  end
 end
